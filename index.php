@@ -14,11 +14,13 @@ function dd(mixed $var) {
     Debugger::dump($var);
 }
 
-$route = empty($_GET['route']) ? 'home' : $_GET['route'];
+$defaultController = 'home';
+
+$route = empty($_GET['route']) ? $defaultController : $_GET['route'];
 
 $controllerAction = explode("/", $route);
 
-$controller = $controllerAction[0];
+$controller = empty($controllerAction[0]) ? $defaultController : $controllerAction[0];
 $controllerQualfName = "App\Controller\\" .  ucfirst($controller) . "Controller";
 
 if (!class_exists($controllerQualfName)) {
