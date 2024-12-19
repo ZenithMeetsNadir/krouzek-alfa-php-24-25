@@ -5,18 +5,19 @@ namespace App\Controller;
 class LogController extends BaseController {
 
     public function __construct() {
+        parent::__construct();
         $this->defaultAction = 'in';
     }
 
     public function inAction(): void {
-        echo 'Action Log/in';
+        $this->view->render('log/in');
     }
 
     public function outAction(): void {
-        echo 'Action Log/out';
+        $this->view->render('log/out');
     }
 
     public function upAction(): void {
-        echo 'Action Log/up';
+        $this->view->render('log/up');
     }
 }
