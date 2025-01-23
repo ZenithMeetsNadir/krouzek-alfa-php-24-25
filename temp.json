@@ -1,0 +1,129 @@
+{
+  "organization": {
+    "name": "Tech Innovators Inc.",
+    "address": {
+      "street": "123 Innovation Way",
+      "city": "San Francisco",
+      "state": "CA",
+      "zip": "94107",
+      "country": "USA"
+    },
+    "departments": [
+      {
+        "name": "Engineering",
+        "manager": {
+          "firstName": "Alice",
+          "lastName": "Smith",
+          "employeeId": 10234,
+          "contact": {
+            "email": "alice.smith@techinnovators.com",
+            "phone": "+1-555-0123"
+          }
+        },
+        "employees": [
+          {
+            "id": 1001,
+            "name": "Bob Johnson",
+            "role": "Software Engineer",
+            "skills": ["JavaScript", "Python", "React"],
+            "experienceYears": 5,
+            "active": true
+          },
+          {
+            "id": 1002,
+            "name": "Carol Davis",
+            "role": "Data Scientist",
+            "skills": ["Python", "R", "Machine Learning"],
+            "experienceYears": 3,
+            "active": false
+          }
+        ]
+      },
+      {
+        "name": "Marketing",
+        "manager": {
+          "firstName": "David",
+          "lastName": "Lee",
+          "employeeId": 10235,
+          "contact": {
+            "email": "david.lee@techinnovators.com",
+            "phone": "+1-555-0456"
+          }
+        },
+        "employees": [
+          {
+            "id": 2001,
+            "name": "Evelyn Brown",
+            "role": "Marketing Specialist",
+            "skills": ["SEO", "Content Strategy"],
+            "experienceYears": 7,
+            "active": true
+          }
+        ]
+      }
+    ]
+  },
+  "products": [
+    {
+      "productId": "P-12345",
+      "name": "SmartWidget",
+      "category": "Electronics",
+      "price": 49.99,
+      "availability": {
+        "inStock": true,
+        "quantity": 120
+      },
+      "ratings": [
+        {
+          "user": "JohnDoe123",
+          "score": 4.5,
+          "comment": "Great value for the price!"
+        },
+        {
+          "user": "JaneSmith456",
+          "score": 4.0,
+          "comment": "Good product but delivery was slow."
+        }
+      ]
+    },
+    {
+      "productId": "P-67890",
+      "name": "UltraGadget",
+      "category": "Electronics",
+      "price": 199.99,
+      "availability": {
+        "inStock": false,
+        "quantity": 0,
+        "restockDate": "2025-02-15"
+      },
+      "ratings": []
+    }
+  ],
+  "events": [
+    {
+      "eventId": "E-001",
+      "name": "Annual Tech Summit",
+      "date": "2025-05-20",
+      "location": {
+        "venue": "Tech Center",
+        "address": "456 Future Blvd, San Francisco, CA 94107"
+      },
+      "attendees": [
+        { "name": "Alice Smith", "role": "Speaker" },
+        { "name": "Bob Johnson", "role": "Participant" }
+      ]
+    },
+    {
+      "eventId": "E-002",
+      "name": "Marketing Workshop",
+      "date": "2025-03-15",
+      "location": {
+        "venue": "Market Hub",
+        "address": "789 Strategy Ave, Los Angeles, CA 90001"
+      },
+      "attendees": [
+        { "name": "Evelyn Brown", "role": "Organizer" }
+      ]
+    }
+  ]
+}

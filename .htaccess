@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteBase /root/
+
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule /\.|^\.(?!well-known/) - [F]
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URL} !.*\.(js|css)
+    RewriteRule ^([^?]*) index.php?route=$1 [L,QSA]
+</IfModule>
