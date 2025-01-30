@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\Connection;
 use DateTime;
 use App\View\View;
 
@@ -12,11 +13,7 @@ class HomeController extends BaseController {
     }
 
     public function testAction(): void {
-        $this->view->render(
-            'home/test',
-            [
-                'date' => (new DateTime())->format('d.m.Y H:i')
-            ]
-        );
+        $connection = new Connection();
+        $connection->query('SELECT * FROM user');
     }
 }

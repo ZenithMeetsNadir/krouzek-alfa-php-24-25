@@ -5,6 +5,7 @@ use App\Controller\LogController;
 use App\Exception\ControllerNotFoundException;
 use App\Exception\ActionNotFoundException;
 use App\Router;
+use App\Service\Connection;
 use App\View\View;
 use Tracy\Debugger;
 
