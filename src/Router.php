@@ -27,11 +27,18 @@ class Router {
         $this->callAction($controllerInst, $actionRoute);
     }
 
+    /**
+     * @throws ActionNotFoundException
+     * @throws ControllerNotFoundException
+     */
     public function navigate(string $controllerRoute, string $actionRoute): void {
         $controllerInst = $this->controllerFactory($controllerRoute);
         $this->callAction($controllerInst, $actionRoute);
     }
 
+    /**
+     * @throws ControllerNotFoundException
+     */
     public function controllerFactory(string $controllerRoute): BaseController {
         $controllerQualfName = "App\Controller\\" .  ucfirst($controllerRoute) . "Controller";
 
@@ -45,6 +52,9 @@ class Router {
         return new $controllerQualfName();
     }
 
+    /**
+     * @throws ActionNotFoundException
+     */
     public function callAction(BaseController $controllerInst, string $actionRoute): void {
         $actionQualfName = $actionRoute . "Action";
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Model;
+namespace App\Model\Entity;
 
 use DateTime;
 
-class User implements IFetchConstructible {
+class User {
 
     protected int $id;
     protected string $firstName;
@@ -107,11 +107,20 @@ class User implements IFetchConstructible {
         return $this;
     }
 
-    public function constructFrom(array $fetchData): mixed
+    public function constructFrom(array $fetchData): User
     {
         $user = new User();
         $user
-            ->setId($fetchData['id']);
+            ->setId($fetchData['id'])
+            ->setFirstName($fetchData['first_name'])
+            ->setLastName($fetchData['last_name'])
+            ->setLogin($fetchData['login'])
+            ->setEmail($fetchData['email'])
+            ->setPassword($fetchData['password'])
+            ->setPhone($fetchData['phone'])
+            ->setDateCreated($fetchData['date_created'])
+            ->setDateUpdated($fetchData['date_updated'])
+            ->setDateCreated($fetchData['date_created']);
 
         return $user;
     }

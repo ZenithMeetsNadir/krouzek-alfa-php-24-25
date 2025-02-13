@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\Connection;
 use DateTime;
-use App\View\View;
 
 class HomeController extends BaseController {
 
@@ -13,7 +11,8 @@ class HomeController extends BaseController {
     }
 
     public function testAction(): void {
-        $connection = new Connection();
-        $connection->query('SELECT * FROM user');
+        $connection = $this->di->getSingletonService('connection');
+        $userQuery = $connection->query('SELECT * FROM user');
+
     }
 }

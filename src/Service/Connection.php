@@ -5,11 +5,11 @@ namespace App\Service;
 use PDO;
 use PDOStatement;
 
-class Connection {
+final class Connection {
     protected PDO $pdo;
 
-    public function __construct() {
-        $this->pdo = new PDO('mysql:host=localhost;dbname=alfa24', 'root', '');
+    public function __construct(string $host, string $database, string $user, string $password) {
+        $this->pdo = new PDO('mysql:host=' . $host . ';dbname=' . $database, $user, $password);
     }
 
     public function query(string $sql): array {
@@ -17,8 +17,6 @@ class Connection {
 
         if ($statement && $statement->execute())
             $rows = $statement->fetchAll();
-
-        dd($rows);
 
         return $rows ?? [];
     }
