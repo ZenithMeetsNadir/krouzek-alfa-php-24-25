@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Exception\QueryException;
 use PDO;
 use PDOStatement;
 
@@ -17,7 +18,9 @@ final class Connection {
 
         if ($statement && $statement->execute())
             $rows = $statement->fetchAll();
+        else
+            throw new QueryException("Query $sql failed.");
 
-        return $rows ?? [];
+        return $rows;
     }
 }

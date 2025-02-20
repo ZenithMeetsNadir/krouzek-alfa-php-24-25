@@ -3,6 +3,7 @@
 namespace App\Model\Entity;
 
 use DateTime;
+use App\Model\Trait\DateFormat;
 
 class User {
 
@@ -105,23 +106,5 @@ class User {
     public function setDateDeleted(?DateTime $dateDeleted): User {
         $this->dateDeleted = $dateDeleted;
         return $this;
-    }
-
-    public function constructFrom(array $fetchData): User
-    {
-        $user = new User();
-        $user
-            ->setId($fetchData['id'])
-            ->setFirstName($fetchData['first_name'])
-            ->setLastName($fetchData['last_name'])
-            ->setLogin($fetchData['login'])
-            ->setEmail($fetchData['email'])
-            ->setPassword($fetchData['password'])
-            ->setPhone($fetchData['phone'])
-            ->setDateCreated($fetchData['date_created'])
-            ->setDateUpdated($fetchData['date_updated'])
-            ->setDateCreated($fetchData['date_created']);
-
-        return $user;
     }
 }

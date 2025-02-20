@@ -11,8 +11,6 @@ class HomeController extends BaseController {
     }
 
     public function testAction(): void {
-        $connection = $this->di->getSingletonService('connection');
-        $userQuery = $connection->query('SELECT * FROM user');
-
+        dd($this->di->userRepositoryFactory()->findById(4));
     }
 }
