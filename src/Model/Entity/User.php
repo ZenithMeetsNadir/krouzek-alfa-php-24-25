@@ -3,7 +3,6 @@
 namespace App\Model\Entity;
 
 use DateTime;
-use App\Model\Trait\DateFormat;
 
 class User {
 
@@ -85,7 +84,10 @@ class User {
         return $this->dateCreated;
     }
 
-    public function setDateCreated(DateTime $dateCreated): User {
+    public function setDateCreated(DateTime|string $dateCreated): User {
+        if (is_string($dateCreated))
+            $dateCreated = new DateTime($dateCreated);
+
         $this->dateCreated = $dateCreated;
         return $this;
     }
@@ -94,7 +96,10 @@ class User {
         return $this->dateUpdated;
     }
 
-    public function setDateUpdated(?DateTime $dateUpdated): User {
+    public function setDateUpdated(DateTime|string|null $dateUpdated): User {
+        if (is_string($dateUpdated))
+            $dateUpdated = new DateTime($dateUpdated);
+
         $this->dateUpdated = $dateUpdated;
         return $this;
     }
@@ -103,7 +108,10 @@ class User {
         return $this->dateDeleted;
     }
 
-    public function setDateDeleted(?DateTime $dateDeleted): User {
+    public function setDateDeleted(DateTime|string|null $dateDeleted): User {
+        if (is_string($dateDeleted))
+            $dateDeleted = new DateTime($dateDeleted);
+
         $this->dateDeleted = $dateDeleted;
         return $this;
     }

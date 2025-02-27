@@ -4,6 +4,6 @@ namespace App\Exception;
 
 use Exception;
 
-class QueryException extends Exception {
+class RecordNotfoundException extends Exception {
 
 }

@@ -2,7 +2,7 @@
 
 namespace App\Model\Repository;
 
-use App\Exception\QueryException;
+use App\Exception\RecordNotfoundException;
 use App\Model\Entity\User;
 
 class UserRepository extends BaseRepository {
@@ -19,17 +19,20 @@ class UserRepository extends BaseRepository {
             ->setPhone($queryResult['phone'])
             ->setDateCreated($queryResult['date_created'])
             ->setDateUpdated($queryResult['date_updated'])
-            ->setDateCreated($queryResult['date_created']);
+            ->setDateDeleted($queryResult['date_deleted']);
 
         return $user;
     }
 
+    /**
+     * @throws RecordNotfoundException
+     */
     public function findById(int $id): User {
-        $queryResult = $this->connection->query("SELECT * FROM user WHERE id = $id;");
+        $queryResult = $this->connection->query("SELECT * FROM user WHERE id = ?", [$id]);
 
         if (isset($queryResult[0]))
             return $this->constructUser($queryResult[0]);
 
-        throw new QueryException("User not found");
+        throw new RecordNotFoundException("User not found");
     }
 }

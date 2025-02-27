@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Exception\RecordNotfoundException;
 
 class HomeController extends BaseController {
 
@@ -11,6 +12,19 @@ class HomeController extends BaseController {
     }
 
     public function testAction(): void {
-        dd($this->di->userRepositoryFactory()->findById(4));
+        $id = $_GET['id'] ?? null;
+
+        if ($id) {
+            try {
+                $user = $this->di->userRepositoryFactory()->findById($id);
+            } catch (RecordNotFoundException) {
+                $this->view->render('error/404');
+                return;
+            }
+
+            dd($user);
+        }
+
+
     }
 }
