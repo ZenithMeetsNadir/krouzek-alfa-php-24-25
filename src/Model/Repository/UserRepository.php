@@ -7,7 +7,7 @@ use App\Model\Entity\User;
 
 class UserRepository extends BaseRepository {
 
-    public function constructUser(array $queryResult): User {
+    protected function constructUser(array $queryResult): User {
         $user = new User();
         $user
             ->setId($queryResult['id'])
@@ -29,6 +29,27 @@ class UserRepository extends BaseRepository {
      */
     public function findById(int $id): User {
         $queryResult = $this->connection->query("SELECT * FROM user WHERE id = ?", [$id]);
+
+        if (isset($queryResult[0]))
+            return $this->constructUser($queryResult[0]);
+
+        throw new RecordNotFoundException("User not found");
+    }
+
+    /**
+     * @throws RecordNotfoundException
+     */
+    public function findByLogin(string $login): User {
+        $queryResult = $this->connection->query("SELECT * FROM user WHERE login = ?", [$login]);
+
+        if (isset($queryResult[0]))
+            return $this->constructUser($queryResult[0]);
+
+        throw new RecordNotFoundException("User not found");
+    }
+
+    public function findByEmail(string $email): User {
+        $queryResult = $this->connection->query("SELECT * FROM user WHERE email = ?", [$email]);
 
         if (isset($queryResult[0]))
             return $this->constructUser($queryResult[0]);

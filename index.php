@@ -1,7 +1,7 @@
 <?php
 
 use App\Controller\HomeController;
-use App\Controller\LogController;
+use App\Controller\SignController;
 use App\Exception\ControllerNotFoundException;
 use App\Exception\ActionNotFoundException;
 use App\Router;

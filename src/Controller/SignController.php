@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-class LogController extends BaseController {
+class SignController extends BaseController {
 
     public function __construct() {
         parent::__construct();
@@ -10,14 +10,14 @@ class LogController extends BaseController {
     }
 
     public function inAction(): void {
-        $this->view->render('log/in');
+        $this->view->render('sign/in');
     }
 
     public function outAction(): void {
-        $this->view->render('log/out');
+        $this->view->render('sign/out');
     }
 
     public function upAction(): void {
-        $this->view->render('log/up');
+        $this->view->render('sign/up');
     }
 }

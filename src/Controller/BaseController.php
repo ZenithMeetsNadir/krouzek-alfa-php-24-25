@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\DI;
 use App\View\View;
+use JetBrains\PhpStorm\NoReturn;
 
 abstract class BaseController {
 
@@ -18,5 +19,11 @@ abstract class BaseController {
 
     public function __toString() {
         return get_class($this);
+    }
+
+    #[NoReturn] public function redirect(string $destination = 'home/index'): void {
+        header("Location: http://localhost/root/$destination");
+
+        exit();
     }
 }
