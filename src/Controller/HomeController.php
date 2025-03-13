@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\DI;
 use DateTime;
 use App\Exception\RecordNotfoundException;
 
@@ -12,7 +13,7 @@ class HomeController extends BaseController {
     }
 
     public function testAction(): void {
-        $id = $_GET['id'] ?? null;
+        /*$id = $_GET['id'] ?? null;
 
         if ($id) {
             try {
@@ -23,8 +24,9 @@ class HomeController extends BaseController {
             }
 
             dd($user);
-        }
+        }*/
 
-
+        $addressRepo = $this->di->addressRepositoryFactory();
+        $addressRepo->getById(1);
     }
 }

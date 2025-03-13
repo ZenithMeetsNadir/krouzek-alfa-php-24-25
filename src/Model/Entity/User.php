@@ -16,6 +16,18 @@ class User {
     protected DateTime $dateCreated;
     protected ?DateTime $dateUpdated;
     protected ?Datetime $dateDeleted;
+    protected int $addressId;
+
+    public function getAddressId(): int
+    {
+        return $this->addressId;
+    }
+
+    public function setAddressId(int $addressId): User
+    {
+        $this->addressId = $addressId;
+        return $this;
+    }
 
     public function getId(): int {
         return $this->id;

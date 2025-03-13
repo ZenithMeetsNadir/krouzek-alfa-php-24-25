@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Exception\ServiceNotFoundException;
+use App\Model\Repository\AddressRepository;
 use App\Model\Repository\UserRepository;
 use App\Service\Connection;
 
@@ -47,5 +48,9 @@ final class DI {
 
     public function userRepositoryFactory(): UserRepository {
         return new UserRepository($this->getSingletonService('connection'));
+    }
+
+    public function addressRepositoryFactory(): AddressRepository {
+        return new AddressRepository($this->getSingletonService('connection'));
     }
 }
