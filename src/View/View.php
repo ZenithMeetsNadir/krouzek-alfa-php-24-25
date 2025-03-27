@@ -2,7 +2,9 @@
 
 namespace App\View;
 
+use App\DI;
 use App\Exception\TemplateNotFoundException;
+use App\Service\LinkGenerator;
 
 class View {
 
@@ -10,14 +12,18 @@ class View {
     private const POPUP_TEMPLATE = __DIR__ . "/../../template/layout/popup.phtml";
     private const FOOTER_TEMPLATE = __DIR__ . "/../../template/layout/footer.phtml";
 
+    private DI $di;
+    private LinkGenerator $linkGenerator;
+
+    public function __construct() {
+        $this->di = DI::getInstance();
+        $this->linkGenerator = $this->di->getSingletonService('linkGenerator');
+    }
+
     /**
      * @throws TemplateNotFoundException
      */
     public function render(string $route, array $data = []): void {
-        $keepOrigin = $_GET['origin'] ? '&origin=' . $_GET['origin'] : '';
-        $createOrigin = $route == 'sign/in' || $route == 'sign/out' ? $keepOrigin : '&origin=' . $route;
-
-        $message = $data['message'];
         extract($data);
 
         if (file_exists(self::HEADER_TEMPLATE))
@@ -27,7 +33,7 @@ class View {
                 "Header template " . self::HEADER_TEMPLATE . " not found."
             );
 
-        if ($message) {
+        if (isset($message)) {
             if (file_exists(self::POPUP_TEMPLATE))
                 require self::POPUP_TEMPLATE;
             else

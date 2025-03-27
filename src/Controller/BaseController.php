@@ -3,49 +3,57 @@
 namespace App\Controller;
 
 use App\DI;
+use App\Model\AuthOrigin;
+use App\Model\RedirectOrigin;
+use App\Service\Redirect;
+use App\Service\Router;
 use App\View\View;
 use JetBrains\PhpStorm\NoReturn;
+use Tracy\Debugger;
 
 abstract class BaseController {
 
-    public static string $HOME = 'home/index';
+    public const HOME = 'home/index';
 
     public string $defaultAction = 'index';
     protected View $view;
     protected DI $di;
+    protected Redirect $redirect;
+    protected Router $router;
 
     public function __construct() {
         $this->view = new View();
         $this->di = DI::getInstance();
+        $this->redirect = $this->di->getSingletonService('redirect');
+        $this->router = $this->di->getSingletonService('router');
+    }
+
+    public function renderView(array $data = []): void {
+        $route = $this->redirect->getVolatileQuery()->getRoute();
+        $fullRoute = $this->router->getFullRoute();
+
+        $keepOrigins = $this->redirect->queryKeepOrigins();
+        $data['keepOrigins'] = $keepOrigins;
+
+        $this->redirect->getVolatileQuery()->setRedirectOrigin(new AuthOrigin($route));
+        $createOrigins = $this->redirect->queryKeepOrigins();
+        $data['createOrigins'] = $createOrigins;
+
+        $this->view->render($fullRoute, $data);
+    }
+
+    public function extractQuery(): void {
+        $this->redirect->extractQuery();
+    }
+
+    #[NoReturn] public function authRequired(): void {
+        if (!$_SESSION['user']) {
+            $route = $this->redirect->getVolatileQuery()->getRoute();
+            $this->redirect->redirectCreateOrigins('sign/in', [new AuthOrigin($route)], params: ['message' => "log in to access $route"]);
+        }
     }
 
     public function __toString() {
         return get_class($this);
-    }
-
-    #[NoReturn] public function redirect(?string $destination = null, ?string $origin = null, array $params = []): void {
-        $destination = $destination ?? self::$HOME;
-
-        $paramsStr = '';
-        foreach ($params as $key => $value)
-            $paramsStr .= "&$key=$value";
-
-        $location = "?route=$destination" . ($origin ? "&origin=$origin" : '') . $paramsStr;
-        header("Location: $location");
-
-        exit();
-    }
-
-    #[NoReturn] public function redirectKeepOrigin(?string $destination = null, array $params = []): void {
-        $this->redirect($destination ?? null, $_GET['origin'] ?? null, $params);
-    }
-
-    #[NoReturn] public function redirectBack(array $params = []): void {
-        $this->redirect($_GET['origin'] ?? null, null, $params);
-    }
-
-    #[NoReturn] public function authRequired(string $ctrlAct): void {
-        if (!$_SESSION['user'])
-            $this->redirect('sign/in', $ctrlAct, ['message' => "log in to access $ctrlAct"]);
     }
 }

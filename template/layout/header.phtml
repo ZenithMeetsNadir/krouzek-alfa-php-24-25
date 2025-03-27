@@ -20,10 +20,13 @@
                     <a class="nav-link active" aria-current="page" href="?route=home">Domů</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= '?route=sign/in' . $createOrigin ?>">Přihlásit se</a>
+                    <a class="nav-link" href="?route=home/authreq">TEST_AUTENTIKACE</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= '?route=sign/out' . $createOrigin ?>">Odhlásit se</a>
+                    <a class="nav-link" href="<?= $this->linkGenerator->generateLink('sign/in', $createOrigins) ?>">Přihlásit se</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->linkGenerator->generateLink('sign/out', $createOrigins) ?>">Odhlásit se</a>
                 </li>
             </ul>
         </div>

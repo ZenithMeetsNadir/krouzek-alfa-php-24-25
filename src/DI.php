@@ -9,6 +9,7 @@ use App\Model\VolatileQuery;
 use App\Service\Connection;
 use App\Service\LinkGenerator;
 use App\Service\Redirect;
+use App\Service\Router;
 
 final class DI {
 
@@ -57,6 +58,10 @@ final class DI {
         $redirect = new Redirect();
         $redirect->setVolatileQuery(new VolatileQuery());
         return $redirect;
+    }
+
+    private function createRouter(): Router {
+        return new Router();
     }
 
     public function userRepositoryFactory(): UserRepository {

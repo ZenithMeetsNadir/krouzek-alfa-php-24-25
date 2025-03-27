@@ -1,12 +1,7 @@
 <?php
 
-use App\Controller\HomeController;
-use App\Controller\SignController;
-use App\Exception\ControllerNotFoundException;
-use App\Exception\ActionNotFoundException;
-use App\Router;
-use App\Service\Connection;
-use App\View\View;
+use App\DI;
+use App\Service\Router;
 use Tracy\Debugger;
 
 require "vendor/autoload.php";
@@ -19,5 +14,5 @@ function dd(mixed $var): void {
 
 session_start();
 
-$router = new Router();
+$router = DI::getInstance()->getSingletonService('router');
 $router->navigateRoute();

@@ -4,21 +4,18 @@ namespace App\Controller;
 
 class SignController extends BaseController {
 
-    public function __construct() {
-        parent::__construct();
-        $this->defaultAction = 'in';
-    }
+    public string $defaultAction = 'in';
 
     public function inAction(): void {
-        $this->view->render('sign/in', ['message' => $_GET['message']]);
+        $this->renderView(['message' => $_GET['message']]);
     }
 
     public function outAction(): void {
         $_SESSION['user'] = null;
-        $this->redirectBack();
+        $this->redirect->redirectBack();
     }
 
     public function upAction(): void {
-        $this->view->render('sign/up');
+        $this->renderView();
     }
 }

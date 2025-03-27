@@ -9,7 +9,7 @@ use App\Exception\RecordNotfoundException;
 class HomeController extends BaseController {
 
     public function indexAction(): void {
-        $this->view->render('home/index');
+        $this->renderView();
     }
 
     public function testAction(): void {
@@ -31,6 +31,6 @@ class HomeController extends BaseController {
         $this->authRequired('home/authreq');
 
         $addressRepo = $this->di->addressRepositoryFactory();
-        $this->view->render('home/authreq', ['address' => $addressRepo->getById(1)]);
+        $this->renderView(['address' => $addressRepo->getById(1)]);
     }
 }

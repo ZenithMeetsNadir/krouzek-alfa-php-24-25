@@ -8,12 +8,12 @@ use App\Model\Repository\UserRepository;
 
 class AuthController extends BaseController {
 
+    public string $defaultAction = 'auth';
     protected UserRepository $userRepo;
 
     public function __construct() {
         parent::__construct();
         $this->userRepo = $this->di->userRepositoryFactory();
-        $this->defaultAction = 'auth';
     }
 
     public function formAction(): void {
@@ -21,16 +21,16 @@ class AuthController extends BaseController {
         $password = $_POST['password'];
 
         if (!($login && $password))
-            $this->redirectKeepOrigin('sign/in', ['message' => 'empty login']);
+            $this->redirect->redirectKeepOrigins('sign/in', params: ['message' => 'empty login']);
 
         try {
             $user = $this->userRepo->findByAnyLogin($login);
             if ($user->getPassword() === $password) {
                 $_SESSION['user'] = $user;
-                $this->redirectBack();
+                $this->redirect->redirectBack();
             }
         } catch (RecordNotfoundException) { }
 
-        $this->redirectKeepOrigin('sign/in', ['message' => 'invalid login or password']);
+        $this->redirect->redirectKeepOrigins('sign/in', params: ['message' => 'invalid login or password']);
     }
 }

@@ -1,20 +1,21 @@
 <?php
 
-namespace App;
+namespace App\Service;
 
 use App\Controller\BaseController;
-use App\Controller\HomeController;
 use App\Exception\ActionNotFoundException;
 use App\Exception\ControllerNotFoundException;
 
 final class Router {
+
+    public const DEFAULT_CONTROLLER = 'home';
 
     /**
      * @throws ControllerNotFoundException
      * @throws ActionNotFoundException
      */
     public function navigateRoute(): void {
-        $defaultController = 'home';
+        $defaultController = self::DEFAULT_CONTROLLER;
 
         $route = empty($_GET['route']) ? $defaultController : $_GET['route'];
 
@@ -65,6 +66,22 @@ final class Router {
             );
         }
 
+        $controllerInst->extractQuery();
         $controllerInst->$actionQualfName();
+    }
+
+    public function getFullRoute(): string {
+        $route = empty($_GET['route']) ? self::DEFAULT_CONTROLLER : $_GET['route'];
+
+        $controllerAction = explode("/", $route);
+        if (count($controllerAction) > 1 && !empty($controllerAction[1]))
+            return $route;
+
+        $controllerRoute = empty($controllerAction[0]) ? self::DEFAULT_CONTROLLER : $controllerAction[0];
+        $controllerInst = $this->controllerFactory($controllerRoute);
+
+        $actionRoute = empty($controllerAction[1]) ? $controllerInst->defaultAction : $controllerAction[1];
+
+        return "$controllerRoute/$actionRoute";
     }
 }

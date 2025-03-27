@@ -1,5 +1,5 @@
 <h2 style="text-align: center; margin-bottom: 1em">Login</h2>
-<form method="post" action="<?= '?route=auth/form' . $keepOrigin ?>" style="padding: 0 2em; display: grid; grid-template-columns: 1fr 1fr; row-gap: 0.5em">
+<form method="post" action="<?= $this->linkGenerator->generateLink('auth/form', $keepOrigins) ?>" style="padding: 0 2em; display: grid; grid-template-columns: 1fr 1fr; row-gap: 0.5em">
     <label for="login" style="grid-column: 1">Login or email:</label>
     <input name="login" id="login" type="text" required style="grid-column: 2"/>
 
