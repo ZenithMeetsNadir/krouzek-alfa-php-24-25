@@ -10,11 +10,12 @@ class SignController extends BaseController {
     }
 
     public function inAction(): void {
-        $this->view->render('sign/in');
+        $this->view->render('sign/in', ['message' => $_GET['message']]);
     }
 
     public function outAction(): void {
-        $this->view->render('sign/out');
+        $_SESSION['user'] = null;
+        $this->redirectBack();
     }
 
     public function upAction(): void {

@@ -13,9 +13,11 @@ require "vendor/autoload.php";
 
 Debugger::enable();
 
-function dd(mixed $var) {
+function dd(mixed $var): void {
     Debugger::dump($var);
 }
+
+session_start();
 
 $router = new Router();
 $router->navigateRoute();

@@ -13,7 +13,7 @@ class HomeController extends BaseController {
     }
 
     public function testAction(): void {
-        /*$id = $_GET['id'] ?? null;
+        $id = $_GET['id'] ?? null;
 
         if ($id) {
             try {
@@ -24,9 +24,13 @@ class HomeController extends BaseController {
             }
 
             dd($user);
-        }*/
+        }
+    }
+
+    public function authreqAction(): void {
+        $this->authRequired('home/authreq');
 
         $addressRepo = $this->di->addressRepositoryFactory();
-        $addressRepo->getById(1);
+        $this->view->render('home/authreq', ['address' => $addressRepo->getById(1)]);
     }
 }

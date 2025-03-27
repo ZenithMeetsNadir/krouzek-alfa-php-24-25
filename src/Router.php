@@ -7,7 +7,7 @@ use App\Controller\HomeController;
 use App\Exception\ActionNotFoundException;
 use App\Exception\ControllerNotFoundException;
 
-class Router {
+final class Router {
 
     /**
      * @throws ControllerNotFoundException

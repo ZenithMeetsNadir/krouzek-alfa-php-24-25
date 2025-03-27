@@ -64,4 +64,8 @@ class Address {
         $this->zipCode = $zipCode;
         return $this;
     }
+
+    public function __toString(): string {
+        return "$this->street $this->houseNumber, $this->zipCode $this->city";
+    }
 }

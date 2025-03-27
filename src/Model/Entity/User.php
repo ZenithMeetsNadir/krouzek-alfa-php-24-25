@@ -16,7 +16,7 @@ class User {
     protected DateTime $dateCreated;
     protected ?DateTime $dateUpdated;
     protected ?Datetime $dateDeleted;
-    protected int $addressId;
+    protected ?int $addressId;
 
     public function getAddressId(): int
     {
