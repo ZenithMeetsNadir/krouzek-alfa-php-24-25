@@ -5,7 +5,10 @@ namespace App;
 use App\Exception\ServiceNotFoundException;
 use App\Model\Repository\AddressRepository;
 use App\Model\Repository\UserRepository;
+use App\Model\VolatileQuery;
 use App\Service\Connection;
+use App\Service\LinkGenerator;
+use App\Service\Redirect;
 
 final class DI {
 
@@ -37,13 +40,23 @@ final class DI {
         return $this->services[$key];
     }
 
-    public function createConnection(): Connection {
+    private function createConnection(): Connection {
         return new Connection(
             'localhost',
             'alfa24',
             'root',
             ''
         );
+    }
+
+    private function createLinkGenerator(): LinkGenerator {
+        return new LinkGenerator();
+    }
+
+    private function createRedirect(): Redirect {
+        $redirect = new Redirect();
+        $redirect->setVolatileQuery(new VolatileQuery());
+        return $redirect;
     }
 
     public function userRepositoryFactory(): UserRepository {
