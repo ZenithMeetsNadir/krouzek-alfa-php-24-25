@@ -9,7 +9,7 @@ require "vendor/autoload.php";
 Debugger::enable();
 
 function dd(mixed $var): void {
-    Debugger::dump($var);
+    Debugger::barDump($var);
 }
 
 session_start();

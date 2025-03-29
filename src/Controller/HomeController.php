@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Attribute\RequireAuth;
 use App\DI;
 use DateTime;
 use App\Exception\RecordNotfoundException;
@@ -27,9 +28,8 @@ class HomeController extends BaseController {
         }
     }
 
+    #[RequireAuth]
     public function authreqAction(): void {
-        $this->authRequired('home/authreq');
-
         $addressRepo = $this->di->addressRepositoryFactory();
         $this->renderView(['address' => $addressRepo->getById(1)]);
     }

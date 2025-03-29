@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\DI;
 use App\Model\AuthOrigin;
 use App\Model\RedirectOrigin;
+use App\Service\Message;
 use App\Service\Redirect;
 use App\Service\Router;
 use App\View\View;
@@ -20,12 +21,14 @@ abstract class BaseController {
     protected DI $di;
     protected Redirect $redirect;
     protected Router $router;
+    protected Message $message;
 
     public function __construct() {
         $this->view = new View();
         $this->di = DI::getInstance();
         $this->redirect = $this->di->getSingletonService('redirect');
         $this->router = $this->di->getSingletonService('router');
+        $this->message = $this->di->getSingletonService('message');
     }
 
     public function renderView(array $data = []): void {
@@ -39,6 +42,8 @@ abstract class BaseController {
         $createOrigins = $this->redirect->queryKeepOrigins();
         $data['createOrigins'] = $createOrigins;
 
+        $data = array_merge($data, $_GET);
+
         $this->view->render($fullRoute, $data);
     }
 
@@ -46,10 +51,14 @@ abstract class BaseController {
         $this->redirect->extractQuery();
     }
 
-    #[NoReturn] public function authRequired(): void {
+    public function requireAuth(): void {
         if (!$_SESSION['user']) {
             $route = $this->redirect->getVolatileQuery()->getRoute();
-            $this->redirect->redirectCreateOrigins('sign/in', [new AuthOrigin($route)], params: ['message' => "log in to access $route"]);
+            $this->redirect->redirectCreateOrigins(
+                'sign/in',
+                [new AuthOrigin($route)],
+                params: ['message_id' => 'auth_required', 'message_arg0' => $route]
+            );
         }
     }
 

@@ -8,6 +8,7 @@ use App\Model\Repository\UserRepository;
 use App\Model\VolatileQuery;
 use App\Service\Connection;
 use App\Service\LinkGenerator;
+use App\Service\Message;
 use App\Service\Redirect;
 use App\Service\Router;
 
@@ -62,6 +63,10 @@ final class DI {
 
     private function createRouter(): Router {
         return new Router();
+    }
+
+    private function createMessage(): Message {
+        return new Message();
     }
 
     public function userRepositoryFactory(): UserRepository {

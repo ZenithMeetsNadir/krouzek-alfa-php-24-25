@@ -7,7 +7,7 @@ class SignController extends BaseController {
     public string $defaultAction = 'in';
 
     public function inAction(): void {
-        $this->renderView(['message' => $_GET['message']]);
+        $this->renderView();
     }
 
     public function outAction(): void {

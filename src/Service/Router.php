@@ -5,6 +5,10 @@ namespace App\Service;
 use App\Controller\BaseController;
 use App\Exception\ActionNotFoundException;
 use App\Exception\ControllerNotFoundException;
+use App\Attribute\RequireAuth;
+use ReflectionAttribute;
+use ReflectionException;
+use ReflectionObject;
 
 final class Router {
 
@@ -59,14 +63,22 @@ final class Router {
     public function callAction(BaseController $controllerInst, string $actionRoute): void {
         $actionQualfName = $actionRoute . "Action";
 
-        if (!method_exists($controllerInst, $actionQualfName)) {
+        $controllerInst->extractQuery();
+
+        $reflection = new ReflectionObject($controllerInst);
+
+        try {
+            $action = $reflection->getMethod($actionQualfName);
+        } catch (ReflectionException) {
             throw new ActionNotFoundException(
                 "Action " . $actionQualfName . " not found on controller " . $controllerInst,
                 404
             );
         }
 
-        $controllerInst->extractQuery();
+        if (!empty($action->getAttributes(RequireAuth::class)))
+            $controllerInst->requireAuth();
+
         $controllerInst->$actionQualfName();
     }
 

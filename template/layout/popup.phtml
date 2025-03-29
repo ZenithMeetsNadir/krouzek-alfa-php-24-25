@@ -1,1 +1,7 @@
-<h2><?= $message ?></h2>
+<h2>
+    <?php
+        $args = array_filter($data, fn ($key) => str_starts_with($key, 'message_arg'), ARRAY_FILTER_USE_KEY);
+
+        echo $this->message->getMessage($message_id, $args);
+    ?>
+</h2>

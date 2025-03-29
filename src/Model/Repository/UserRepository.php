@@ -48,6 +48,9 @@ class UserRepository extends BaseRepository {
         throw new RecordNotFoundException("User not found");
     }
 
+    /**
+     * @throws RecordNotfoundException
+     */
     public function findByEmail(string $email): User {
         $queryResult = $this->connection->query("SELECT * FROM user WHERE email = ?", [$email]);
 
@@ -57,6 +60,9 @@ class UserRepository extends BaseRepository {
         throw new RecordNotFoundException("User not found");
     }
 
+    /**
+     * @throws RecordNotfoundException
+     */
     public function findByAnyLogin(string $login): User {
         $queryResult = $this->connection->query("SELECT * FROM user WHERE login = ? OR email = ?", [$login, $login]);
 
@@ -64,5 +70,9 @@ class UserRepository extends BaseRepository {
             return $this->constructUser($queryResult[0]);
 
         throw new RecordNotFoundException("User not found");
+    }
+
+    public function changePassword(int $id, string $password): void {
+        $this->connection->query("UPDATE user SET password = ? WHERE id = ?", [$password, $id]);
     }
 }

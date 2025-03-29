@@ -25,7 +25,7 @@ final class Redirect {
         $this->volatileQuery->extractRoute($query);
     }
 
-    #[NoReturn] public function redirect(?string $destination, array $params = []): void {
+    #[NoReturn] public function redirect(?string $destination = null, array $params = []): void {
         $redirectUrl = $this->linkGenerator->generateLink($destination, $params);
         header('Location: ' . $redirectUrl);
 
