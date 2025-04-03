@@ -9,6 +9,7 @@ use App\Model\VolatileQuery;
 use App\Service\Connection;
 use App\Service\LinkGenerator;
 use App\Service\Message;
+use App\Service\OriginInteraction;
 use App\Service\Redirect;
 use App\Service\Router;
 
@@ -67,6 +68,10 @@ final class DI {
 
     private function createMessage(): Message {
         return new Message();
+    }
+
+    private function createOriginInteraction(): OriginInteraction {
+        return new OriginInteraction();
     }
 
     public function userRepositoryFactory(): UserRepository {

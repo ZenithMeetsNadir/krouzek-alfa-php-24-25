@@ -65,6 +65,15 @@ final class Redirect {
         return $params;
     }
 
+    public function queryCreateAuthOrigin(array $params = []): array {
+        $route = $this->getVolatileQuery()->getRoute();
+
+        if (AuthOrigin::canCreateAuthOrigin($route))
+            $this->getVolatileQuery()->setRedirectOrigin(new AuthOrigin($route));
+
+        return $this->queryKeepOrigins(params: $params);
+    }
+
     public function getVolatileQuery(): VolatileQuery {
         return $this->volatileQuery;
     }

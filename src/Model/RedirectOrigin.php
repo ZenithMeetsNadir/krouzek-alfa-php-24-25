@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\DI;
 use App\Service\Router;
 
 class RedirectOrigin {
@@ -9,6 +10,11 @@ class RedirectOrigin {
     protected ?string $origin = null;
     protected string $redirectName;
     protected array $params;
+    protected DI $di;
+
+    public function __construct() {
+        $this->di = DI::getInstance();
+    }
 
     public function isLabeledParam(string $paramName): bool {
         return str_starts_with($paramName, $this->redirectName . '_');

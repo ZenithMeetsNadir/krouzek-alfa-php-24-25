@@ -38,8 +38,7 @@ abstract class BaseController {
         $keepOrigins = $this->redirect->queryKeepOrigins();
         $data['keepOrigins'] = $keepOrigins;
 
-        $this->redirect->getVolatileQuery()->setRedirectOrigin(new AuthOrigin($route));
-        $createOrigins = $this->redirect->queryKeepOrigins();
+        $createOrigins = $this->redirect->queryCreateAuthOrigin();
         $data['createOrigins'] = $createOrigins;
 
         $data = array_merge($data, $_GET);

@@ -1,10 +1,18 @@
-<h2 style="text-align: center; margin-bottom: 1em">Login</h2>
-<form method="post" action="<?= $this->linkGenerator->generateLink('auth/form', $keepOrigins) ?>" style="padding: 0 2em; display: grid; grid-template-columns: 1fr 1fr; row-gap: 0.5em">
-    <label for="login" style="grid-column: 1">Login or email:</label>
-    <input name="login" id="login" type="text" required style="grid-column: 2"/>
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2 style="text-align: center; margin-bottom: 1em">Login</h2>
+        <form method="post" action="<?= $this->linkGenerator->generateLink('auth/form', $keepOrigins) ?>">
+            <div class="mb-3">
+                <label for="login" class="form-label" style="display: none">Login or email:</label>
+                <input name="login" id="login" type="text" placeholder="Login or email" required class="form-control"/>
+            </div>
 
-    <label for="password" style="grid-column: 1">Password:</label>
-    <input name="password" id="password" type="password" required style="grid-column: 2"/>
+            <div class="mb-3">
+                <label for="password" class="form-label" style="display: none">Password:</label>
+                <input name="password" id="password" type="password" placeholder="Password" required class="form-control"/>
+            </div>
 
-    <input type="submit" value="sign in" style="grid-column: 1 / span 2"/>
-</form>
+            <input type="submit" value="Sign in" class="btn btn-primary"/>
+        </form>
+    </div>
+</div>
