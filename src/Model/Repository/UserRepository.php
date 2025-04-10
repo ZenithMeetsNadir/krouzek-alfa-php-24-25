@@ -4,6 +4,7 @@ namespace App\Model\Repository;
 
 use App\Exception\RecordNotfoundException;
 use App\Model\Entity\User;
+use Tracy\Debugger;
 
 class UserRepository extends BaseRepository {
 
@@ -28,7 +29,7 @@ class UserRepository extends BaseRepository {
      * @throws RecordNotfoundException
      */
     public function findById(int $id): User {
-        $queryResult = $this->connection->query("SELECT * FROM user WHERE id = ?", [$id]);
+        $queryResult = $this->connection->query("SELECT * FROM user WHERE date_deleted IS NULL AND id = ?", [$id]);
 
         if (isset($queryResult[0]))
             return $this->constructUser($queryResult[0]);
@@ -40,7 +41,7 @@ class UserRepository extends BaseRepository {
      * @throws RecordNotfoundException
      */
     public function findByLogin(string $login): User {
-        $queryResult = $this->connection->query("SELECT * FROM user WHERE login = ?", [$login]);
+        $queryResult = $this->connection->query("SELECT * FROM user WHERE date_deleted IS NULL login = ?", [$login]);
 
         if (isset($queryResult[0]))
             return $this->constructUser($queryResult[0]);
@@ -52,7 +53,7 @@ class UserRepository extends BaseRepository {
      * @throws RecordNotfoundException
      */
     public function findByEmail(string $email): User {
-        $queryResult = $this->connection->query("SELECT * FROM user WHERE email = ?", [$email]);
+        $queryResult = $this->connection->query("SELECT * FROM user WHERE date_deleted IS NULL AND email = ?", [$email]);
 
         if (isset($queryResult[0]))
             return $this->constructUser($queryResult[0]);
@@ -64,7 +65,7 @@ class UserRepository extends BaseRepository {
      * @throws RecordNotfoundException
      */
     public function findByAnyLogin(string $login): User {
-        $queryResult = $this->connection->query("SELECT * FROM user WHERE login = ? OR email = ?", [$login, $login]);
+        $queryResult = $this->connection->query("SELECT * FROM user WHERE date_deleted IS NULL AND (login = ? OR email = ?)", [$login, $login]);
 
         if (isset($queryResult[0]))
             return $this->constructUser($queryResult[0]);

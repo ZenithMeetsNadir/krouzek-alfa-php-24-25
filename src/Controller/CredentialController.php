@@ -14,7 +14,7 @@ class CredentialController extends BaseController {
 
     public function __construct() {
         parent::__construct();
-        $this->userRepo = $this->di->userRepositoryFactory();
+        $this->userRepo = $this->di->getSingletonService('userRepository');
     }
 
     #[NoReturn] public function indexAction(): void {

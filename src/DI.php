@@ -3,7 +3,9 @@
 namespace App;
 
 use App\Exception\ServiceNotFoundException;
+use App\Model\Entity\Contact;
 use App\Model\Repository\AddressRepository;
+use App\Model\Repository\ContactRepository;
 use App\Model\Repository\UserRepository;
 use App\Model\VolatileQuery;
 use App\Service\Connection;
@@ -74,11 +76,19 @@ final class DI {
         return new OriginInteraction();
     }
 
-    public function userRepositoryFactory(): UserRepository {
-        return new UserRepository($this->getSingletonService('connection'));
+    private function createUserRepository(): UserRepository {
+        return new UserRepository($this);
     }
 
-    public function addressRepositoryFactory(): AddressRepository {
-        return new AddressRepository($this->getSingletonService('connection'));
+    private function createAddressRepository(): AddressRepository {
+        return new AddressRepository($this);
+    }
+
+    private function createContactRepository(): ContactRepository {
+        return new ContactRepository($this);
+    }
+
+    public function contactFactory(): Contact {
+        return new Contact($this->getSingletonService('userRepository'));
     }
 }

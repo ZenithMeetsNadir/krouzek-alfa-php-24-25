@@ -7,9 +7,11 @@ use App\Service\Connection;
 
 abstract class BaseRepository {
 
+    protected DI $di;
     protected Connection $connection;
 
-    public function __construct(Connection $connection) {
-        $this->connection = $connection;
+    public function __construct(DI $di) {
+        $this->di = $di;
+        $this->connection = $this->di->getSingletonService('connection');
     }
 }

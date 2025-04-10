@@ -18,7 +18,7 @@ class HomeController extends BaseController {
 
         if ($id) {
             try {
-                $user = $this->di->userRepositoryFactory()->findById($id);
+                $user = $this->di->getSingletonService('userRepository')->findById($id);
             } catch (RecordNotFoundException) {
                 $this->view->render('error/404');
                 return;
@@ -30,7 +30,7 @@ class HomeController extends BaseController {
 
     #[RequireAuth]
     public function authreqAction(): void {
-        $addressRepo = $this->di->addressRepositoryFactory();
+        $addressRepo = $this->di->getSingletonService('addressRepo');
         $this->renderView(['address' => $addressRepo->getById(1)]);
     }
 }
