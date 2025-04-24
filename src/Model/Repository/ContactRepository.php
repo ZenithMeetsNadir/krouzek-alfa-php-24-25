@@ -12,8 +12,8 @@ class ContactRepository extends BaseRepository {
         $contact = $this->di->contactFactory();
         $contact
             ->setId($record['id'])
-            ->setFirstName($record['firstname'])
-            ->setLastName($record['lastname'])
+            ->setFirstName($record['first_name'])
+            ->setLastName($record['last_name'])
             ->setEmail($record['email'])
             ->setPhone($record['phone'])
             ->setBirthdate($record['birthdate'])
@@ -25,8 +25,8 @@ class ContactRepository extends BaseRepository {
     /**
      * @throws RecordNotfoundException
      */
-    public function getById($id): Address {
-        $queryResult = $this->connection->query("SELECT * FROM address WHERE id = ?", [$id]);
+    public function findById($id): Contact {
+        $queryResult = $this->connection->query("SELECT * FROM contact WHERE id = ?", [$id]);
 
         if (isset($queryResult[0]))
             return $this->constructContact($queryResult[0]);

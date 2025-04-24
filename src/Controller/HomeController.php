@@ -14,23 +14,25 @@ class HomeController extends BaseController {
     }
 
     public function testAction(): void {
-        $id = $_GET['id'] ?? null;
 
-        if ($id) {
-            try {
-                $user = $this->di->getSingletonService('userRepository')->findById($id);
-            } catch (RecordNotFoundException) {
-                $this->view->render('error/404');
-                return;
-            }
-
-            dd($user);
-        }
     }
 
     #[RequireAuth]
     public function authreqAction(): void {
-        $addressRepo = $this->di->getSingletonService('addressRepo');
-        $this->renderView(['address' => $addressRepo->getById(1)]);
+        $addrId = $_GET['addr_id'] ?? null;
+        $contactId = $_GET['contact_id'] ?? null;
+
+        $data = [];
+
+        if ($addrId) {
+            $addressRepo = $this->di->getSingletonService('addressRepository');
+            $data['address'] = $addressRepo->findById($addrId);
+        }
+        if ($contactId) {
+            $contactRepo = $this->di->getSingletonService('contactRepository');
+            $data['contact'] = $contactRepo->findById($contactId);
+        }
+
+        $this->renderView($data);
     }
 }

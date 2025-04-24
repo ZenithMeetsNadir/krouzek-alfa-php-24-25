@@ -23,7 +23,7 @@ class AddressRepository extends BaseRepository {
     /**
      * @throws RecordNotfoundException
      */
-    public function getById($id): Address {
+    public function findById($id): Address {
         $queryResult = $this->connection->query("SELECT * FROM address WHERE id = ?", [$id]);
 
         if (isset($queryResult[0]))

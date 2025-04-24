@@ -1,0 +1,37 @@
+<h2>Create a new contact</h2>
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <form action="<?= $this->linkGenerator->generateLink('contact/create') ?>" method="post">
+            <div class="mb-3">
+                <label for="input-fn" class="form-label" style="display: none">First name*</label>
+                <input id="input-fn" class="form-control" type="text" name="firstName" placeholder="First name*" required>
+            </div>
+            <div class="mb-3">
+                <label for="input-ln" class="form-label" style="display: none">Last Name</label>
+                <input id="input-ln" class="form-control" type="text" name="lastName" placeholder="Last name">
+            </div>
+            <div class="mb-3">
+                <label for="input-email" class="form-label" style="display: none">Email</label>
+                <input id="input-email" class="form-control" type="email" name="email" placeholder="Email">
+            </div>
+            <div class="mb-3">
+                <label for="input-phone" class="form-label" style="display: none">Phone</label>
+                <input id="input-phone" class="form-control" type="text" name="phone" placeholder="Phone">
+            </div>
+            <div class="mb-3">
+                <label for="input-birthdate" class="form-label" style="display: none">BirthDate</label>
+                <input id="input-birthdate" class="form-control" type="date" name="birthdate" placeholder="Birthdate">
+            </div>
+            <div class="mb-3">
+                <label for="input-note" class="form-label">Note</label>
+                <textarea id="input-note" class="form-control" rows="5" name="note"></textarea>
+            </div>
+
+            <div style="display: flex; justify-content: space-between">
+                <input type="reset" value="Clear" class="btn btn-danger btn-login">
+                <input type="submit" value="Create" class="btn btn-primary btn-login">
+            </div>
+        </form>
+    </div>
+</div>

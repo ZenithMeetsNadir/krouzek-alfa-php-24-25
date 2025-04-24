@@ -74,9 +74,6 @@ class Contact {
     }
 
     public function setBirthdate(?string $birthdate): Contact {
-        if (is_string($birthdate))
-            $birthdate = new DateTime($birthdate);
-
         $this->birthdate = $birthdate;
         return $this;
     }
@@ -107,5 +104,9 @@ class Contact {
             $this->user = $this->userRepo->findById($this->userId);
 
         return $this->user;
+    }
+
+    public function __toString(): string {
+        return $this->firstName . ' ' . $this->lastName;
     }
 }
