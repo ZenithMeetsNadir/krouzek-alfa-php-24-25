@@ -33,4 +33,17 @@ class ContactRepository extends BaseRepository {
 
         throw new RecordNotfoundException("Address not found");
     }
+
+    public function findByUserId(int $userId): array {
+        $queryResult = $this->connection->query("SELECT * FROM contact WHERE user_id = ?", [$userId]);
+
+        return array_map(fn($value): Contact => $this->constructContact($value), $queryResult);
+    }
+
+    public function save(Contact $contact) {
+        $this->connection->query(
+            "INSERT INTO contact (first_name, last_name, email, phone, birthdate, note , user_id) VALUES (?, ?, ?, ?, ?, ?, ?);",
+            [$contact->getFirstName(), $contact->getLastName(), $contact->getEmail(), $contact->getPhone(), $contact->getBirthdate(), $contact->getNote(), $contact->getUserId()]
+        );
+    }
 }

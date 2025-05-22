@@ -20,6 +20,7 @@ class AuthController extends BaseController {
         $this->redirect->redirect();
     }
 
+    #[NoReturn]
     public function formAction(): void {
         $login = $_POST['login'];
         $password = $_POST['password'];

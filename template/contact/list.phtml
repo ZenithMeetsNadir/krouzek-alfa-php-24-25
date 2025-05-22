@@ -1,0 +1,14 @@
+<div style="display: flex; gap: 1rem; flex-wrap: wrap" class="mt-4">
+    <?php foreach ($contacts as $contact): ?>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"><?= $contact->getFullName() ?></h5>
+                <p class="card-text">
+                    <strong>Email:</strong> <?= $contact->getEmail() ?><br>
+                    <strong>Telefon:</strong> <?= $contact->getPhone() ?>
+                </p>
+                <a href="<?= $this->linkGenerator->generateLink('contact/editForm', ['id' => $contact->getId()]) ?>" class="btn btn-primary btn-sm">Edit</a>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>

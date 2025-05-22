@@ -1,0 +1,39 @@
+<h2>Create a new contact</h2>
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <form action="<?= $this->linkGenerator->generateLink('contact/update') ?>" method="post">
+            <div class="mb-3">
+                <label for="input-fn" class="form-label" style="display: none">First name*</label>
+                <input id="input-fn" class="form-control" type="text" name="firstName" value="<?= $contact->getFirstName() ?>" required>
+            </div>
+            <div class="mb-3">
+                <label for="input-ln" class="form-label" style="display: none">Last Name</label>
+                <input id="input-ln" class="form-control" type="text" name="lastName" value="<?= $contact->getLastName() ?>">
+            </div>
+            <div class="mb-3">
+                <label for="input-email" class="form-label" style="display: none">Email</label>
+                <input id="input-email" class="form-control" type="email" name="email" value="<?= $contact->getEmail() ?>">
+            </div>
+            <div class="mb-3">
+                <label for="input-phone" class="form-label" style="display: none">Phone</label>
+                <input id="input-phone" class="form-control" type="text" name="phone" value="<?= $contact->getPhone() ?>">
+            </div>
+            <div class="mb-3">
+                <label for="input-birthdate" class="form-label" style="display: none">BirthDate</label>
+                <input id="input-birthdate" class="form-control" type="date" name="birthdate" value="<?= $contact->getBirthdate() ?>">
+            </div>
+            <div class="mb-3">
+                <label for="input-note" class="form-label">Note</label>
+                <textarea id="input-note" class="form-control" rows="5" name="note"><?= $contact->getNote() ?></textarea>
+            </div>
+
+            <input type="hidden" name="id" value="<?= $contact->getId() ?>">
+
+            <div style="display: flex; justify-content: space-between">
+                <input type="reset" value="Clear" class="btn btn-danger btn-login">
+                <input type="submit" value="Create" class="btn btn-primary btn-login">
+            </div>
+        </form>
+    </div>
+</div>

@@ -17,7 +17,8 @@ class CredentialController extends BaseController {
         $this->userRepo = $this->di->getSingletonService('userRepository');
     }
 
-    #[NoReturn] public function indexAction(): void {
+    #[NoReturn]
+    public function indexAction(): void {
         $this->redirect->redirect();
     }
 
