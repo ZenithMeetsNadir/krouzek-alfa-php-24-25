@@ -19,7 +19,7 @@ class VolatileQuery {
                 return $redirectOrigin->isLabeledParam($paramName);
             }, ARRAY_FILTER_USE_KEY);
 
-            $origin = $params[$redirectOrigin->getRedirectName()];
+            $origin = $params[$redirectOrigin->getRedirectName()] ?? null;
             if ($origin)
                 $redirectOrigin->setOrigin($origin);
 
@@ -28,7 +28,7 @@ class VolatileQuery {
     }
 
     public function extractRoute(array $query): void {
-        $route = $query['route'];
+        $route = $query['route'] ?? null;
         if ($route)
             $this->setRoute($route);
     }

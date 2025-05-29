@@ -17,7 +17,8 @@ class ContactRepository extends BaseRepository {
             ->setEmail($record['email'])
             ->setPhone($record['phone'])
             ->setBirthdate($record['birthdate'])
-            ->setUserId($record['user_id']);
+            ->setUserId($record['user_id'])
+            ->setNote($record['note']);
 
         return $contact;
     }
@@ -31,7 +32,7 @@ class ContactRepository extends BaseRepository {
         if (isset($queryResult[0]))
             return $this->constructContact($queryResult[0]);
 
-        throw new RecordNotfoundException("Address not found");
+        throw new RecordNotfoundException("Contact not found");
     }
 
     public function findByUserId(int $userId): array {
@@ -40,10 +41,27 @@ class ContactRepository extends BaseRepository {
         return array_map(fn($value): Contact => $this->constructContact($value), $queryResult);
     }
 
-    public function save(Contact $contact) {
+    public function create(Contact $contact) {
         $this->connection->query(
-            "INSERT INTO contact (first_name, last_name, email, phone, birthdate, note , user_id) VALUES (?, ?, ?, ?, ?, ?, ?);",
+            "INSERT INTO contact 
+            (first_name, last_name, email, phone, birthdate, note , user_id) VALUES (?, ?, ?, ?, ?, ?, ?);",
             [$contact->getFirstName(), $contact->getLastName(), $contact->getEmail(), $contact->getPhone(), $contact->getBirthdate(), $contact->getNote(), $contact->getUserId()]
+        );
+    }
+
+    public function update(Contact $contact) {
+        $this->connection->query(
+            "UPDATE contact
+            SET first_name = ?, last_name = ?, email = ?, phone = ?, birthdate = ?, note = ?
+            WHERE id = ?",
+            [$contact->getFirstName(), $contact->getLastName(), $contact->getEmail(), $contact->getPhone(), $contact->getBirthdate(), $contact->getNote(), $contact->getId()]
+        );
+    }
+
+    public function delete(Contact $contact) {
+        $this->connection->query(
+            "DELETE FROM contact WHERE id = ?",
+            [$contact->getId()]
         );
     }
 }

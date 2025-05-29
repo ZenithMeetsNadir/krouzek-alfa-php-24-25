@@ -5,9 +5,12 @@
                 <h5 class="card-title"><?= $contact->getFullName() ?></h5>
                 <p class="card-text">
                     <strong>Email:</strong> <?= $contact->getEmail() ?><br>
-                    <strong>Telefon:</strong> <?= $contact->getPhone() ?>
+                    <strong>Telefon:</strong> <?= $contact->getPhone() ?><br>
+                    <strong>Birthdate:</strong> <?= $contact->getBirthdate() ?><br>
+                    <?= $contact->getNote() ?>
                 </p>
-                <a href="<?= $this->linkGenerator->generateLink('contact/editForm', ['id' => $contact->getId()]) ?>" class="btn btn-primary btn-sm">Edit</a>
+                <a href="<?= $this->linkGenerator->generateLink('contact/updateForm', ['id' => $contact->getId()]) ?>" class="btn btn-primary btn-sm">Edit</a>
+                <a href="<?= $this->linkGenerator->generateLink('contact/delete', ['id' => $contact->getId()]) ?>" class="btn btn-danger btn-sm">Delete</a>
             </div>
         </div>
     <?php endforeach; ?>

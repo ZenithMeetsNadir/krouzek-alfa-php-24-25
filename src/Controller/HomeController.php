@@ -10,7 +10,7 @@ use App\Exception\RecordNotfoundException;
 class HomeController extends BaseController {
 
     public function indexAction(): void {
-        $this->requireAuth();
+        $this->renderView();
     }
 
     public function testAction(): void {
